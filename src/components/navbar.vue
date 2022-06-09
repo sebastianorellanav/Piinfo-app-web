@@ -32,13 +32,22 @@
             </v-col>
             
             <v-col >
-                <div class="d-flex justify-end">
-                    <v-btn text href="/#/login">
+                <div v-if="isLogin == false" class="d-flex justify-end">
+                    <v-btn text @click="login()">
                         Iniciar Sesión
                     </v-btn>
 
                     <v-btn  color="#3C8379" dark href="/#/">
                         Registrarse
+                    </v-btn>
+                </div>
+                <div v-else class="d-flex justify-end">
+                    <v-btn text @click="logout()">
+                        Cerrar Sesión
+                    </v-btn>
+
+                    <v-btn  color="#3C8379" dark href="/#/mi-empresa">
+                        Mi empresa
                     </v-btn>
                 </div>
             </v-col>
@@ -54,5 +63,32 @@ export default {
 
     components: {
     },
+    data: function (){
+        return {
+           
+        }
+    },
+      computed: {
+    isLogin () {
+      return this.$store.state.isLogin
+    }
+  },
+    created(){
+        //this.isLogin = localStorage.getItem('login')
+    },
+    methods: {
+        login(){
+            this.$router.push('/login')
+        },
+
+        logout(){
+            //this.isLogin = false;
+            this.$store.commit('make_logout');
+            localStorage.setItem('login', false)
+            this.$router.push('/login')
+
+        }
+    },
+
   }
 </script>

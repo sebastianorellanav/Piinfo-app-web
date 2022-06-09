@@ -29,10 +29,10 @@
         <v-col cols="3" class="mx-15 pa-15 pt-0">
             <div>
                 <v-form class="mt-15"> 
-                    <v-text-field class="my-6" outlined v-model="email" :rules="emailRules" label="Correo" required></v-text-field>
+                    <v-text-field class="my-6" outlined v-model="email" :rules="rules" label="Correo" required></v-text-field>
                     <v-text-field class="my-6" outlined v-model="password" :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'" :rules="[rules.required, rules.min]" :type="show1 ? 'text' : 'password'" name="input-10-1" label="Contraseña" hint="At least 8 characters" counter @click:append="show1 = !show1"></v-text-field>
                     <div class="d-flex justify-center">
-                        <v-btn  dark color="#FF7F5C" href="/#/mi-empresa">Iniciar Sesión</v-btn>
+                        <v-btn  dark color="#FF7F5C" @click="login()">Iniciar Sesión</v-btn>
                     </div>
                 </v-form>
             </div>
@@ -68,6 +68,7 @@ export default {
     components: {},
     data: function () {
         return {
+            email: "",
             show1: false,
             show2: true,
             password: '',
@@ -76,6 +77,14 @@ export default {
                 min: v => v.length >= 8 || 'Min 8 characters',
                 emailMatch: () => (`The email and password you entered don't match`),
             },
+        }
+    },
+
+    methods: {
+        login(){
+            localStorage.setItem("login", true);
+            this.$store.commit('make_login');
+            this.$router.push("mi-empresa");
         }
     }
 }
