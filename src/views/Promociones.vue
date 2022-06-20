@@ -17,7 +17,7 @@
     <v-row justify-center class="mt-5">
         <v-col>
             <template>
-                <v-data-table :headers="headers" :items="desserts" sort-by="calories" class="elevation-1">
+                <v-data-table :headers="headers" :items="promociones" sort-by="calories" class="elevation-1">
                     <template v-slot:top>
                         <v-toolbar flat>
                             <v-toolbar-title>Lista de productos ingresados</v-toolbar-title>
@@ -56,7 +56,7 @@
                     </template>
                     <template v-slot:no-data>
                         <v-btn color="primary" @click="initialize">
-                            No hay datos
+                            No se ha ingresado ninguna promoción
                         </v-btn>
                     </template>
                 </v-data-table>
@@ -100,7 +100,7 @@ export default {
                     sortable: false
                 },
             ],
-            desserts: [],
+            promociones: [],
             editedIndex: -1,
             editedItem: {
                 name: '',
@@ -139,68 +139,8 @@ export default {
 
     methods: {
       initialize () {
-        this.desserts = [
-          {
-            name: 'Frozen Yogurt',
-            state: 6.0,
-            image: 24,
-            views: 4.0,
-          },
-          {
-            name: 'Ice cream sandwich',
-            state: 9.0,
-            image: 37,
-            views: 4.3,
-          },
-          {
-            name: 'Eclair',
-            state: 16.0,
-            image: 23,
-            views: 6.0,
-          },
-          {
-            name: 'Cupcake',
-            state: 3.7,
-            image: 67,
-            views: 4.3,
-          },
-          {
-            name: 'Gingerbread',
-            state: 16.0,
-            image: 49,
-            views: 3.9,
-          },
-          {
-            name: 'Jelly bean',
-            state: 0.0,
-            image: 94,
-            views: 0.0,
-          },
-          {
-            name: 'Lollipop',
-            state: 0.2,
-            image: 98,
-            views: 0,
-          },
-          {
-            name: 'Honeycomb',
-            state: 3.2,
-            image: 87,
-            views: 6.5,
-          },
-          {
-            name: 'Donut',
-            state: 25.0,
-            image: 51,
-            views: 4.9,
-          },
-          {
-            name: 'KitKat',
-            state: 26.0,
-            image: 65,
-            views: 7,
-          },
-        ]
+        this.promociones = this.$store.state.current_user.promociones;
+          
       },
 
       editItem (item) {
@@ -208,13 +148,13 @@ export default {
       },
 
       deleteItem (item) {
-        this.editedIndex = this.desserts.indexOf(item)
+        this.editedIndex = this.promociones.indexOf(item)
         this.editedItem = Object.assign({}, item)
         this.dialogDelete = true
       },
 
       deleteItemConfirm () {
-        this.desserts.splice(this.editedIndex, 1)
+        this.promociones.splice(this.editedIndex, 1)
         this.closeDelete()
       },
 
@@ -236,9 +176,9 @@ export default {
 
       save () {
         if (this.editedIndex > -1) {
-          Object.assign(this.desserts[this.editedIndex], this.editedItem)
+          Object.assign(this.promociones[this.editedIndex], this.editedItem)
         } else {
-          this.desserts.push(this.editedItem)
+          this.promociones.push(this.editedItem)
         }
         this.close()
       },

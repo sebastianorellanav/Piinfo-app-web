@@ -19,31 +19,31 @@
     <v-form>
         <v-row justify="center">
             <v-col cols="4">
-                <v-text-field v-model="firstname" :rules="nameRules" :counter="10" label="Nombre" required></v-text-field>
+                <v-text-field v-model="nombre" :rules="nameRules" :counter="10" label="Nombre" required></v-text-field>
             </v-col>
             <v-col cols="4">
-                <v-text-field :counter="10" label="Apellido" required></v-text-field>
-            </v-col>
-        </v-row>
-                <v-row justify="center">
-            <v-col cols="4">
-                <v-text-field :counter="10" label="Correo" required></v-text-field>
-            </v-col>
-            <v-col cols="4">
-                <v-text-field :counter="10" label="Run" required></v-text-field>
+                <v-text-field v-model="apellido" :counter="10" label="Apellido" required></v-text-field>
             </v-col>
         </v-row>
                 <v-row justify="center">
             <v-col cols="4">
-                <v-text-field :counter="10" label="Género" required></v-text-field>
+                <v-text-field v-model="correo" :counter="10" label="Correo" required></v-text-field>
             </v-col>
             <v-col cols="4">
-                <v-text-field :counter="10" label="Edad" required></v-text-field>
+                <v-text-field v-model="run" :counter="10" label="Run" required></v-text-field>
             </v-col>
         </v-row>
                 <v-row justify="center">
             <v-col cols="4">
-                <v-text-field :counter="10" label="Teléfono" required></v-text-field>
+                <v-text-field v-model="genero" :counter="10" label="Género" required></v-text-field>
+            </v-col>
+            <v-col cols="4">
+                <v-text-field v-model="edad" :counter="10" label="Edad" required></v-text-field>
+            </v-col>
+        </v-row>
+                <v-row justify="center">
+            <v-col cols="4">
+                <v-text-field v-model="telefono" :counter="10" label="Teléfono" required></v-text-field>
             </v-col>
             
         </v-row>
@@ -52,7 +52,7 @@
             <v-col cols="12">
               <div class="d-flex justify-center">
                    <v-btn class="mx-2" x-large >Cancelar</v-btn>
-               <v-btn href="/#/contratacion-convenio-2" class="mx-2" x-large color="#FF7F5C" dark>Siguiente</v-btn>
+               <v-btn @click="guardarDatos()" class="mx-2" x-large color="#FF7F5C" dark>Siguiente</v-btn>
               </div>
             </v-col>
            
@@ -78,5 +78,35 @@ export default {
     name: 'ContratacionConvenioUno',
 
     components: {},
+
+    data: function () {
+        return {
+            nombre: "",
+            apellido: "",
+            correo: "",
+            run: "",
+            genero: "",
+            edad: "",
+            telefono: "",
+        }
+    },
+
+    methods: {
+        guardarDatos () {
+            let nuevo_usuario = {
+                nombre_dueño: this.nombre,
+                apellido: this.apellido,
+                email: this.correo,
+                run: this.run,
+                genero: this.genero,
+                edad: this.edad,
+                telefono: this.telefono,
+            }
+
+            this.$store.commit("saveTemporalData", nuevo_usuario)
+
+            this.$router.push("contratacion-convenio-2")
+        }
+    }
 }
 </script>

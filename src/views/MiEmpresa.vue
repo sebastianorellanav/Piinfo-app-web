@@ -12,22 +12,22 @@
         <v-col cols="10">
             <div class="d-flex justify-start">
                 <p class="text-center">
-                    <strong>Nombre: </strong> Mi empresa
+                    <strong>Nombre: </strong> {{current_user.nombre_empresa}}
                 </p>
             </div>
             <div class="d-flex justify-start">
                 <p class="text-center">
-                    <strong>Tipo de Empresa: </strong> ______
+                    <strong>Tipo de Empresa: </strong> {{current_user.tipo_empresa}}
                 </p>
             </div>
             <div class="d-flex justify-start">
                 <p class="text-center">
-                    <strong>Dirección Casa Matriz: </strong> _______
+                    <strong>Dirección Casa Matriz: </strong> {{current_user.direccion}}
                 </p>
             </div>
             <div class="d-flex justify-start">
                 <p class="text-center">
-                    <strong>Página Web: </strong> ______
+                    <strong>Página Web: </strong> {{current_user.pagina_web}}
                 </p>
             </div>
         </v-col>
@@ -118,7 +118,16 @@
 <script>
 export default {
     name: 'MiEmpresa',
-
     components: {},
+
+    data: function(){
+        return {
+            current_user: {}
+        }
+    },
+
+    created(){
+        this.current_user = this.$store.state.current_user;
+    }
 }
 </script>

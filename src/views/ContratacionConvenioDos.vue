@@ -19,41 +19,41 @@
     <v-form>
         <v-row justify="center">
             <v-col cols="4">
-                <v-text-field v-model="firstname" :rules="nameRules" :counter="10" label="Nombre" required></v-text-field>
+                <v-text-field v-model="nombre_empresa" :rules="nameRules" :counter="10" label="Nombre" required></v-text-field>
             </v-col>
             <v-col cols="4">
-                <v-select v-model="tipoEmpresaSeleccionada" :items="tiposEmpresas" :rules="[v => !!v || 'Item is required']" label="Tipo Empresa" required></v-select>
-            </v-col>
-        </v-row>
-        <v-row justify="center">
-            <v-col cols="4">
-                <v-text-field :counter="10" label="Correo" required></v-text-field>
-            </v-col>
-            <v-col cols="4">
-                <v-text-field :counter="10" label="Teléfono" required></v-text-field>
+                <v-select v-model="tipo_empresa" :items="tiposEmpresas" :rules="[v => !!v || 'Item is required']" label="Tipo Empresa" required></v-select>
             </v-col>
         </v-row>
         <v-row justify="center">
             <v-col cols="4">
-                <v-text-field :counter="10" label="Rut de la Empresa" required></v-text-field>
+                <v-text-field v-model="correo_empresa" :counter="10" label="Correo" required></v-text-field>
             </v-col>
             <v-col cols="4">
-                <v-text-field :counter="10" label="Dirección (Casa Matriz)" required></v-text-field>
+                <v-text-field v-model="telefono_empresa" :counter="10" label="Teléfono" required></v-text-field>
             </v-col>
         </v-row>
         <v-row justify="center">
             <v-col cols="4">
-                <v-text-field :counter="10" label="Página Web" required></v-text-field>
+                <v-text-field v-model="rut_empresa" :counter="10" label="Rut de la Empresa" required></v-text-field>
             </v-col>
             <v-col cols="4">
-                <v-text-field :counter="10" label="Redes Sociales" required></v-text-field>
+                <v-text-field v-model="direccion" :counter="10" label="Dirección (Casa Matriz)" required></v-text-field>
+            </v-col>
+        </v-row>
+        <v-row justify="center">
+            <v-col cols="4">
+                <v-text-field v-model="pagina_web" :counter="10" label="Página Web" required></v-text-field>
+            </v-col>
+            <v-col cols="4">
+                <v-text-field v-model="redes_sociales" :counter="10" label="Redes Sociales" required></v-text-field>
             </v-col>
 
         </v-row>
 
         <v-row justify="center">
             <v-col cols="4">
-                <v-select v-model="tipoConvenioSeleccionada" :items="tipoConvenios" :rules="[v => !!v || 'Item is required']" label="Convenio Seleccionado" required></v-select>
+                <v-select v-model="convenio" :items="tipoConvenios" :rules="[v => !!v || 'Item is required']" label="Convenio Seleccionado" required></v-select>
             </v-col>
             <v-col cols="4">
                 <v-file-input label="Certificación"></v-file-input>
@@ -73,7 +73,7 @@
             <v-col cols="12">
                 <div class="d-flex justify-center">
                     <v-btn href="/#/convenios" class="mx-2" x-large>Cancelar</v-btn>
-                    <v-btn href="/#/contratacion-convenio-3" class="mx-2" x-large color="#FF7F5C" dark>Siguiente</v-btn>
+                    <v-btn @click="guardarDatos()" class="mx-2" x-large color="#FF7F5C" dark>Siguiente</v-btn>
                 </div>
             </v-col>
 
@@ -102,9 +102,37 @@ export default {
     data: function () {
         return {
             tiposEmpresas: ["Micro", "Pequeña", "Mediana"],
-            tipoEmpresaSeleccionada: "",
+            tipo_empresa: "",
             tipoConvenios: ["Mini", "Super"],
-            tipoconvenioSeleccionado: ""
+            convenio: "",
+            nombre_empresa: "",
+            correo_empresa: "",
+            telefono_empresa: "",
+            rut_empresa: "",
+            direccion: "",
+            pagina_web: "",
+            redes_sociales: "",
+
+        }
+    },
+
+    methods: {
+        guardarDatos () {
+            let nuevo_usuario = {
+                tipo_empresa: this.tipo_empresa,
+                convenio: this.convenio,
+                nombre_empresa: this.nombre_empresa,
+                correo_empresa: this.correo_empresa,
+                telefono_empresa: this.telefono_empresa,
+                rut_empresa: this.rut_empresa,
+                direccion: this.direccion,
+                pagina_web: this.pagina_web,
+                redes_sociales: this.redes_sociales,
+            }
+
+            this.$store.commit("saveTemporalData", nuevo_usuario)
+
+            this.$router.push("contratacion-convenio-3")
         }
     }
 }

@@ -84,6 +84,7 @@ export default {
         login(){
             localStorage.setItem("login", true);
             this.$store.commit('make_login');
+            this.$store.commit('set_current_user', this.email)
             this.$router.push("mi-empresa");
         }
     }

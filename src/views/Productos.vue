@@ -18,7 +18,7 @@
     <v-row justify-center class="mt-5">
         <v-col>
             <template>
-                <v-data-table :headers="headers" :items="desserts" sort-by="calories" class="elevation-1">
+                <v-data-table :headers="headers" :items="productos" sort-by="calories" class="elevation-1">
                     <template v-slot:top>
                         <v-toolbar flat>
                             <v-toolbar-title>Lista de productos ingresados</v-toolbar-title>
@@ -41,7 +41,7 @@
           </v-card>
         </v-dialog>
                     </template>
-                    <template v-slot:item.image="{ item }">
+                    <template >
                         <v-btn plain color="#3C8379" style="text-transform:capitalize">
                             ver imagen
                         </v-btn>
@@ -57,7 +57,7 @@
                     </template>
                     <template v-slot:no-data>
                         <v-btn color="primary" @click="initialize">
-                            No hay datos
+                            No se ha ingresado ningún producto todavía
                         </v-btn>
                     </template>
                 </v-data-table>
@@ -105,7 +105,7 @@ export default {
                     sortable: false
                 },
             ],
-            desserts: [],
+            productos: [],
             editedIndex: -1,
             editedItem: {
                 name: '',
@@ -144,78 +144,8 @@ export default {
 
     methods: {
       initialize () {
-        this.desserts = [
-          {
-            name: 'Frozen Yogurt',
-            information: 159,
-            state: 6.0,
-            image: 24,
-            views: 4.0,
-          },
-          {
-            name: 'Ice cream sandwich',
-            information: 237,
-            state: 9.0,
-            image: 37,
-            views: 4.3,
-          },
-          {
-            name: 'Eclair',
-            information: 262,
-            state: 16.0,
-            image: 23,
-            views: 6.0,
-          },
-          {
-            name: 'Cupcake',
-            information: 305,
-            state: 3.7,
-            image: 67,
-            views: 4.3,
-          },
-          {
-            name: 'Gingerbread',
-            information: 356,
-            state: 16.0,
-            image: 49,
-            views: 3.9,
-          },
-          {
-            name: 'Jelly bean',
-            information: 375,
-            state: 0.0,
-            image: 94,
-            views: 0.0,
-          },
-          {
-            name: 'Lollipop',
-            information: 392,
-            state: 0.2,
-            image: 98,
-            views: 0,
-          },
-          {
-            name: 'Honeycomb',
-            information: 408,
-            state: 3.2,
-            image: 87,
-            views: 6.5,
-          },
-          {
-            name: 'Donut',
-            information: 452,
-            state: 25.0,
-            image: 51,
-            views: 4.9,
-          },
-          {
-            name: 'KitKat',
-            information: 518,
-            state: 26.0,
-            image: 65,
-            views: 7,
-          },
-        ]
+        this.productos = this.$store.state.current_user.productos;
+          
       },
 
       editItem (item) {
@@ -223,13 +153,13 @@ export default {
       },
 
       deleteItem (item) {
-        this.editedIndex = this.desserts.indexOf(item)
+        this.editedIndex = this.productos.indexOf(item)
         this.editedItem = Object.assign({}, item)
         this.dialogDelete = true
       },
 
       deleteItemConfirm () {
-        this.desserts.splice(this.editedIndex, 1)
+        this.productos.splice(this.editedIndex, 1)
         this.closeDelete()
       },
 
@@ -251,9 +181,9 @@ export default {
 
       save () {
         if (this.editedIndex > -1) {
-          Object.assign(this.desserts[this.editedIndex], this.editedItem)
+          Object.assign(this.productos[this.editedIndex], this.editedItem)
         } else {
-          this.desserts.push(this.editedItem)
+          this.productos.push(this.editedItem)
         }
         this.close()
       },

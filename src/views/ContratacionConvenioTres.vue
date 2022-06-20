@@ -62,7 +62,7 @@
         <v-col cols="12">
             <div class="d-flex justify-center">
                 <v-btn href="/#/convenios" class="mx-2" x-large>Cancelar</v-btn>
-                <v-btn href="/#/mi-empresa" class="mx-2" x-large color="#FF7F5C" dark>Siguiente</v-btn>
+                <v-btn @click="crearCuenta()" class="mx-2" x-large color="#FF7F5C" dark>Siguiente</v-btn>
             </div>
         </v-col>
 
@@ -94,6 +94,13 @@ export default {
             tipoEmpresaSeleccionada: "",
             tipoConvenios: ["Mini", "Super"],
             tipoconvenioSeleccionado: ""
+        }
+    },
+
+    methods: {
+        crearCuenta () {
+            this.$store.commit("createAccount")
+            this.$router.push("mi-empresa")
         }
     }
 }

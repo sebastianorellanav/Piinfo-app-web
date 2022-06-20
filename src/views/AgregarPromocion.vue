@@ -12,10 +12,10 @@
     <v-form>
         <v-row justify="center">
             <v-col cols="8">
-                <v-text-field v-model="name" :rules="nameRules" :counter="10" label="Nombre" required></v-text-field>
+                <v-text-field v-model="nombre" :rules="nameRules" :counter="10" label="Nombre" required></v-text-field>
             </v-col>
             <v-col cols="8">
-                <v-textarea v-model="information" :rules="nameRules" outlined label="Información" required></v-textarea>
+                <v-textarea v-model="informacion" :rules="nameRules" outlined label="Información" required></v-textarea>
             </v-col>
         </v-row>
         
@@ -45,7 +45,7 @@
             <v-col cols="12">
                 <div class="d-flex justify-center">
                     <v-btn href="/#/administrar-promociones" class="mx-2" x-large>Cancelar</v-btn>
-                    <v-btn href="/#/administrar-promociones" class="mx-2" x-large color="#FF7F5C" dark>Guardar</v-btn>
+                    <v-btn @click="guardarPromocion()" class="mx-2" x-large color="#FF7F5C" dark>Guardar</v-btn>
                 </div>
             </v-col>
 
@@ -65,7 +65,25 @@ export default {
             tiposEmpresas: ["Micro", "Pequeña", "Mediana"],
             tipoEmpresaSeleccionada: "",
             tipoConvenios: ["Mini", "Super"],
-            tipoconvenioSeleccionado: ""
+            tipoconvenioSeleccionado: "",
+            nombre: "",
+            informacion: "",
+            imagen: "",
+        }
+    },
+
+    methods: {
+        guardarPromocion () {
+            let promocion = {
+                name: this.nombre,
+                information: this.informacion,
+                image: this.imagen,
+                state: "Activa",
+                views: 0
+            }
+
+            this.$store.commit("save_promotion", promocion)
+            this.$router.push("administrar-promociones")
         }
     }
 }

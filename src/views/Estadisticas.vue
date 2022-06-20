@@ -25,7 +25,7 @@
                             Activas
                         </v-card-text>
                         <v-card-text>
-                            <h1 class="text-h1 green--text">6</h1>
+                            <h1 class="text-h1 green--text">{{promociones_activas.length}}</h1>
                         </v-card-text>
                     </v-card>
                 </v-col>
@@ -35,7 +35,7 @@
                             Inactivas
                         </v-card-text>
                         <v-card-text>
-                            <h1 class="text-h1">3</h1>
+                            <h1 class="text-h1">{{promociones_inactivas.length}}</h1>
                         </v-card-text>
                     </v-card>
                 </v-col>
@@ -50,7 +50,13 @@
             </div>
             <v-row>
                 <v-col>
-                    <v-data-table :headers="headersProductTable" :items="dataProductTable" :items-per-page="5" class="elevation-1"></v-data-table>
+                    <v-data-table :headers="headersProductTable" :items="dataProductTable" :items-per-page="5" class="elevation-1">
+                        <template v-slot:no-data>
+                        <v-btn color="primary" @click="initialize">
+                            No se ha ingresado ningún producto todavía
+                        </v-btn>
+                    </template>
+                    </v-data-table>
                 </v-col>
             </v-row>
         </v-col>
@@ -77,7 +83,7 @@
                                 Usuarios Totales
                             </v-card-text>
                             <v-card-text class="text-center text-h5 black--text font-weight-medium">
-                                29340
+                                {{users_searches[0]}}
                             </v-card-text>
                         </v-card>
                         <v-card elevation="0" outlined>
@@ -85,7 +91,7 @@
                                 Veganos
                             </v-card-text>
                             <v-card-text class="text-center text-h5 black--text font-weight-medium">
-                                2340
+                                {{users_searches[1]}}
                             </v-card-text>
                         </v-card>
                         <v-card elevation="0" outlined>
@@ -93,7 +99,7 @@
                                 Vegetarianos
                             </v-card-text>
                             <v-card-text class="text-center text-h5 black--text font-weight-medium">
-                                2934
+                                {{users_searches[2]}}
                             </v-card-text>
                         </v-card>
                         <v-card elevation="0" outlined>
@@ -101,7 +107,7 @@
                                 Celíacos
                             </v-card-text>
                             <v-card-text class="text-center text-h5 black--text font-weight-medium">
-                                2940
+                                {{users_searches[3]}}
                             </v-card-text>
                         </v-card>
                     </v-col>
@@ -123,22 +129,10 @@ export default {
     },
     data: function () {
         return {
-            dataProductTable: [{
-                    name: "Producto 1",
-                    searches: 232
-                },
-                {
-                    name: "Producto 2",
-                    searches: 198
-                },
-                {
-                    name: "Producto 3",
-                    searches: 150
-                },
-                {
-                    name: "Producto 4",
-                    searches: 23
-                }
+            promociones_activas: [],
+            promociones_inactivas: [],
+            users_searches:[],
+            dataProductTable: [
             ],
 
             headersProductTable: [{
@@ -147,7 +141,7 @@ export default {
                 },
                 {
                     text: 'Búsquedas',
-                    value: 'searches'
+                    value: 'views'
                 }
             ],
             series: [{
@@ -202,6 +196,15 @@ export default {
                 }
             },
         }
+    },
+
+    created() {
+        console.log(this.$store.state.current_user.promociones.filter(e => {return e.state === "Activa"}))
+        this.promociones_activas = this.$store.state.current_user.promociones.filter(e => {return e.state === "Activa"});
+        this.promociones_inactivas = this.$store.state.current_user.promociones.filter(e => { return e.state === "Inactiva"});
+
+        this.dataProductTable = this.$store.state.current_user.productos.slice(0,4);
+        this.users_searches = this.$store.state.current_user.users_searches;
     },
     methods: {
 
