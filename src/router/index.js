@@ -15,6 +15,7 @@ import EditarPromocion from '../views/EditarPromocion'
 import CargarDatos from '../views/CargarDatos'
 import Estadisticas from '../views/Estadisticas'
 import Login from '../views/Login'
+import RegistroExitoso from '../views/RegistroExitoso'
 
 Vue.use(VueRouter)
 
@@ -93,6 +94,11 @@ const routes = [
     path: '/login',
     name: 'Login',
     component: Login
+  },
+  {
+    path: '/registro-exitoso',
+    name: 'RegistroExitoso',
+    component: RegistroExitoso
   },
   {
     path: '/about',

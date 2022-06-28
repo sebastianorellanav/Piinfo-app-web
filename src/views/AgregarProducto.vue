@@ -12,15 +12,15 @@
     <v-form>
         <v-row justify="center">
             <v-col cols="8">
-                <v-text-field v-model="nombre" :rules="nameRules" :counter="10" label="Nombre" required></v-text-field>
+                <v-text-field v-model="nombre"  :counter="10" label="Nombre" required></v-text-field>
             </v-col>
             <v-col cols="8">
-                <v-textarea v-model="informacion" :rules="nameRules" outlined label="Información" required></v-textarea>
+                <v-textarea v-model="informacion"  outlined label="Información" required></v-textarea>
             </v-col>
         </v-row>
         <v-row justify="center">
             <v-col cols="4">
-                <v-text-field v-model="porcion" :counter="10" label="Porción" required></v-text-field>
+                <v-text-field v-model="porcion" :counter="10" label="porcion" required></v-text-field>
             </v-col>
             <v-col cols="4">
                 <v-text-field v-model="porcion_por_envace" :counter="10" label="Porciones por envace" required></v-text-field>
@@ -29,7 +29,7 @@
         <v-row justify="center">
             <v-col cols="4">
                 <div class="">
-                    <h1 class="text-h6 orange--text my-4">Ingresar cantidades por porción</h1>
+                    <h1 class="text-h6 orange--text my-4">Ingresar cantidades por porcion</h1>
                     <v-text-field v-model="energia_porcion" :counter="10" label="Energía" required></v-text-field>
                 </div>
             </v-col>
@@ -92,7 +92,7 @@
 
         <v-row justify="center">
             <v-col cols="8">
-                <v-textarea v-model="ingredientes" :rules="nameRules" outlined label="Ingredientes (cada ingrediente separado por una coma)" required></v-textarea>
+                <v-textarea v-model="ingredientes" outlined label="Ingredientes (cada ingrediente separado por una coma)" required></v-textarea>
             </v-col>
         </v-row>
 
@@ -145,7 +145,7 @@ export default {
             tipoconvenioSeleccionado: "",
             nombre: "",
             informacion: "",
-            porción: "",
+            porcion: "",
             porcion_por_envace: "",
             energia_porcion: "",
             energia_envace: "",
@@ -166,7 +166,7 @@ export default {
             let producto = {
                 name: this.nombre,
                 information: this.informacion,
-                porción: this.porción,
+                porcion: this.porcion,
                 porcion_por_envace: this.porcion_por_envace,
                 energia_porcion: this.energia_porcion,
                 energia_envace: this.energia_envace,

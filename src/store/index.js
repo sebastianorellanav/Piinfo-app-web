@@ -19,9 +19,23 @@ export default new Vuex.Store({
         state: "Activo",
         image: "url",
         views: 0,
+        porcion: "2",
+        porcion_por_envace: "4",
+        energia_porcion: "12",
+        energia_envace: "23",
+        proteina_envace: "23",
+        proteina_porcion: "34",
+        grasa_porcion: "12",
+        grasa_envace: "15",
+        azucar_envace: "5",
+        azucar_porcion: "13",
+        carbohidrato_envace: "12",
+        carbohidrato_porcion: "23",
+        ingredientes: "Agua, Sal, Azucar, Cacao, Leche de soya, Harina integral"
       }],
       promociones:[{
         name: 'Oferta Donuts: 3x2',
+        information: "Oferta de Donuts veganas",
         state: "Activa",
         image: "url",
         views: 0,
@@ -66,6 +80,14 @@ export default new Vuex.Store({
       state.users.push(new_user);
       state.current_user = new_user;
       state.new_user = {}
+    },
+    change_products(state, user) {
+      state.current_user = user;
+      state.users.forEach(e => {
+        if(e.nombre_empresa === user.nombre_empresa){
+          e = user;
+        }
+      })
     }
   },
   actions: {

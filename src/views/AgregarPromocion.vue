@@ -12,10 +12,10 @@
     <v-form>
         <v-row justify="center">
             <v-col cols="8">
-                <v-text-field v-model="nombre" :rules="nameRules" :counter="10" label="Nombre" required></v-text-field>
+                <v-text-field v-model="nombre" :counter="10" label="Nombre" required></v-text-field>
             </v-col>
             <v-col cols="8">
-                <v-textarea v-model="informacion" :rules="nameRules" outlined label="Información" required></v-textarea>
+                <v-textarea v-model="informacion" outlined label="Información" required></v-textarea>
             </v-col>
         </v-row>
         
